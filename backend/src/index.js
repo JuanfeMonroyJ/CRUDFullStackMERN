@@ -1,4 +1,7 @@
+require('dotenv').config()
+
 const app = require('./app')
+require('./database')
 
 //Esta lógica es para ejecutar el servidor
 async function main() {
