@@ -19,12 +19,25 @@ usuarioCtrl.createUsu = async(req, res) => {
     await newUsu.save();
     res.json({message: "el usuario ha sido creado"}) 
 }
-usuarioCtrl.getUsu = async(req, res) => {
+usuarioCtrl.getUsuario = async(req, res) => {
+    const usuario = await Usuario.findById(req.params.id)
+    res.json(usuario)
+}
+usuarioCtrl.deleteUsu = async(req, res) => {
+    await Usuario.findByIdAndDelete(req.params.id)
+    res.json({message: 'usuario ha sido eliminado'})
 
 }
-usuarioCtrl.getUsu = async(req, res) => {
-
+usuarioCtrl.updateUsu = async(req, res) => {
+    const {nombre, apellido, correo, telefono, edad} = req.body;
+    await Usuario.findByIdAndUpdate(req.params.id, {
+        nombre,
+        apellido,
+        edad,
+        correo,
+        telefono
+    })
+        res.json({message: 'El usuario ha sido actualizado'})
 }
-usuarioCtrl.getUsu = async(req, res) => {
 
-}
+module.exports = usuarioCtrl;
