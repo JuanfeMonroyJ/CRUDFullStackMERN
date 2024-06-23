@@ -13,7 +13,7 @@ function App() {
       <Navegacion />
       <div className="container p-4">
         <Routes>
-          <Route path="/" element={<ListaUsuarios />} />
+          <Route path="/" element={<ListaUsuario />} />
           <Route path="/CrearUsuario" element={<CrearUsuarios />} />
           <Route path="/edit/:id" element={<CrearUsuarios />} />
         </Routes>
