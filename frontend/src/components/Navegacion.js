@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 const Navegacion = () => {
     return (
         <div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div className="container">
                     <Link className="navbar-brand" to="/">
                         Usuario
                     </Link>
