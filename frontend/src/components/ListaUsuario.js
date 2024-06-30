@@ -6,13 +6,13 @@ const ListaUsuario = () => {
 
     const [lista, setLista] = useState([])
 
-    useEffect(() =>{
-            const getUsuarios = async () => {
-                const res = await axios.get("http://localhost:4000/api/usuarios")
-                setLista(res.data)
-            }
-            getUsuarios();
-    },[lista])
+    useEffect(() => {
+        const getUsuarios = async () => {
+            const res = await axios.get("http://localhost:4000/api/usuarios")
+            setLista(res.data)
+        }
+        getUsuarios();
+    }, [lista])
 
     const eliminarUsuario = async (id) => {
         await axios.delete("http://localhost:4000/api/usuarios/" + id)
@@ -35,12 +35,12 @@ const ListaUsuario = () => {
                             </div>
 
                             <div className='card-footer'>
-                                <button className='btn btn-danger' onClick={()=>eliminarUsuario(list._id)}>
+                                <button className='btn btn-danger' onClick={() => eliminarUsuario(list._id)}>
                                     Eliminar
                                 </button>
 
                                 <Link className='btn btn-primary m-1' to={'/edit/' + list._id}>
-                                Editar
+                                    Editar
                                 </Link>
 
                             </div>
