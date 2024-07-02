@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const CrearUsuarios = () => {
 
@@ -11,7 +13,11 @@ const CrearUsuarios = () => {
         correo: ''
     }
 
+    let {id} = useParams();
+
+
     const [usuario, setUsuario] = useState(valorInicial)
+    const [subId, setSubId] = useState(id)
 
     const capturarDatos = (e) => {
         const { name, value } = e.target
@@ -33,8 +39,28 @@ const CrearUsuarios = () => {
 
         await axios.post("http://localhost:4000/api/usuarios", newUser)
 
-        setUsuario(valorInicial)
+        setUsuario({...valorInicial})
     }
+
+    //Lógica para hacer petición API 
+    
+    const obtUno = async(valorId)=>{
+        const res = await axios.get('http://localhost:4000/api/usuarios/' + valorId)
+        setUsuario({
+            nombre: res.data.nombre,
+            apellido: res.data.apellido,
+            edad: res.data.edad,
+            telefono: res.data.telefono,
+            correo: res.data.correo
+        })
+    }
+
+    useEffect(() => {
+        if(subId !=='') {
+            obtUno(subId)
+        }
+     }, [subId]);
+
 
     return (
         <div className="col-md-6 offset-md-3">
