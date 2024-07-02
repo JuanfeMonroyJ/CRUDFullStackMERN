@@ -13,11 +13,11 @@ const CrearUsuarios = () => {
         correo: ''
     }
 
-    let {id} = useParams();
+    let { id } = useParams();
 
 
     const [usuario, setUsuario] = useState(valorInicial)
-    const [subId, setSubId] = useState(id)
+    const [subId, setSubId] = useState( id ?? "" );
 
     const capturarDatos = (e) => {
         const { name, value } = e.target
@@ -39,12 +39,28 @@ const CrearUsuarios = () => {
 
         await axios.post("http://localhost:4000/api/usuarios", newUser)
 
-        setUsuario({...valorInicial})
+        setUsuario({ ...valorInicial })
+    }
+
+    //Función para actualizar el usuario
+
+    const actualizarUser = async (e) => {
+        e.preventDefault();
+        const newUser = {
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            edad: usuario.edad,
+            telefono: usuario.telefono,
+            correo: usuario.correo
+        }
+        await axios.put('http://localhost:4000/api/usuarios/' + subId, newUser)
+        setUsuario({ ...valorInicial })
+        setSubId('')
     }
 
     //Lógica para hacer petición API 
-    
-    const obtUno = async(valorId)=>{
+
+    const obtUno = async (valorId) => {
         const res = await axios.get('http://localhost:4000/api/usuarios/' + valorId)
         setUsuario({
             nombre: res.data.nombre,
@@ -56,10 +72,10 @@ const CrearUsuarios = () => {
     }
 
     useEffect(() => {
-        if(subId !=='') {
+        if (subId !== '') {
             obtUno(subId)
         }
-     }, [subId]);
+    }, [subId]);
 
 
     return (
@@ -142,6 +158,11 @@ const CrearUsuarios = () => {
                         Guardar Usuario
                     </button>
                 </form>
+
+                <form onSubmit={actualizarUser}>
+                    <button className='btn btn-danger form-control mt-2'>Actualizar Información</button>
+                </form>
+
             </div>
         </div>
     )
